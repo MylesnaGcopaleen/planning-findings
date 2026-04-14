@@ -77,7 +77,7 @@ hr.sep{border:none;border-top:2px solid var(--border);margin:3.5rem 0}
 <div class="chart-card">
 <h3>Cross-validated predictive accuracy</h3>
 <div class="sub">5-fold cross-validation, HistGradientBoosting classifier. AUC = 1.0 is perfect; 0.5 is random chance.</div>
-<div id="wrap_c_h1" data-h="140" class="chart-wrap" style="position:relative;width:100%;max-width:700px"></div>
+<div style="position:relative;width:100%;max-width:700px"><canvas id="c_h1"></canvas></div>
 </div>
 
 <p>Once you know what the planner actually weighed up, the specific policy clauses they pointed to add nothing. The real hierarchy is a handful of concrete concerns.</p>
@@ -107,13 +107,13 @@ hr.sep{border:none;border-top:2px solid var(--border);margin:3.5rem 0}
 <div class="chart-card">
 <h3>Grant rate by number of negative factors</h3>
 <div class="sub">At zero negatives: 95 per cent granted. By 10 or more: 33 per cent.</div>
-<div id="wrap_c_neg" data-h="240" class="chart-wrap" style="position:relative;width:100%;max-width:700px"></div>
+<div style="position:relative;width:100%;max-width:700px"><canvas id="c_neg"></canvas></div>
 </div>
 
 <div class="chart-card">
 <h3>Positives × negatives: grant rate heatmap</h3>
 <div class="sub">Each cell shows the grant rate for cases with that combination. Read left to right: more negatives are devastating. Read top to bottom: more positives barely help once negatives are present.</div>
-<div id="wrap_c_heat" data-h="340" class="chart-wrap" style="position:relative;width:100%;max-width:700px"></div>
+<div style="position:relative;width:100%;max-width:700px"><canvas id="c_heat"></canvas></div>
 </div>
 
 <p>With 1 positive and 0 negatives, the grant rate is 97 per cent. Add 5 negatives and it drops to 51 per cent &mdash; regardless of how many positives you stack up. The system is closer to veto logic than balancing.</p>
@@ -188,7 +188,7 @@ hr.sep{border:none;border-top:2px solid var(--border);margin:3.5rem 0}
 <div class="chart-card">
 <h3>Distribution of agent grant rates (agents with 20+ cases)</h3>
 <div class="sub">1,619 agents. Likelihood ratio test: &chi;&sup2; = 341.5, p &lt; 0.001.</div>
-<div id="wrap_c_agent" data-h="240" class="chart-wrap" style="position:relative;width:100%;max-width:700px"></div>
+<div style="position:relative;width:100%;max-width:700px"><canvas id="c_agent"></canvas></div>
 </div>
 
 <div class="stat-row">
@@ -242,7 +242,7 @@ hr.sep{border:none;border-top:2px solid var(--border);margin:3.5rem 0}
 <div class="chart-card">
 <h3>Policy survival on appeal</h3>
 <div class="sub">Dark = refusal upheld (policy survived). Light = refusal overturned (policy failed).</div>
-<div id="wrap_c_zombie" data-h="380" class="chart-wrap" style="position:relative;width:100%;max-width:700px"></div>
+<div style="position:relative;width:100%;max-width:700px"><canvas id="c_zombie"></canvas></div>
 </div>
 
 <table class="mini-table" style="margin:1rem 0">
@@ -278,13 +278,13 @@ hr.sep{border:none;border-top:2px solid var(--border);margin:3.5rem 0}
 <div class="chart-card">
 <h3>Number of proposals by unit count</h3>
 <div class="sub">Gold = 1-unit proposals. The cliff is near-vertical.</div>
-<div id="wrap_c_freq" data-h="260" class="chart-wrap" style="position:relative;width:100%;max-width:700px"></div>
+<div style="position:relative;width:100%;max-width:700px"><canvas id="c_freq"></canvas></div>
 </div>
 
 <div class="chart-card">
 <h3>Grants vs refusals by unit count</h3>
 <div class="sub">Dark gold = granted. Light = refused. Refusal rate stays around 40&ndash;50 per cent regardless of scale.</div>
-<div id="wrap_c_stacked" data-h="260" class="chart-wrap" style="position:relative;width:100%;max-width:700px"></div>
+<div style="position:relative;width:100%;max-width:700px"><canvas id="c_stacked"></canvas></div>
 </div>
 
 <p>1,939 of 3,430 proposals are for a single dwelling. The drop to 2 units (343 proposals) is 82 per cent. By 10 units, 29 proposals. The refusal rate barely changes &mdash; the system doesn't punish larger schemes more. Applicants have already self-selected out.</p>
@@ -304,7 +304,7 @@ hr.sep{border:none;border-top:2px solid var(--border);margin:3.5rem 0}
 <div class="chart-card">
 <h3>Appeal rate by deprivation decile</h3>
 <div class="sub">Decile 1 = most affluent areas. Decile 10 = most deprived. Gold line = all appeals. Darker line = third-party appeals (objections against grants).</div>
-<div id="wrap_c_deprivation" data-h="280" class="chart-wrap" style="position:relative;width:100%;max-width:700px"></div>
+<div style="position:relative;width:100%;max-width:700px"><canvas id="c_deprivation"></canvas></div>
 </div>
 
 <div class="stat-row">
@@ -326,16 +326,7 @@ hr.sep{border:none;border-top:2px solid var(--border);margin:3.5rem 0}
 
 <script>
 Chart.defaults.color='#999';Chart.defaults.borderColor='#eee';Chart.defaults.font.family="'TWK Lausanne','Calibri','Helvetica Neue',sans-serif";Chart.defaults.font.size=12;
-Chart.defaults.devicePixelRatio=1;
 Chart.defaults.animation=false;
-
-// Create canvases dynamically to avoid context corruption
-document.querySelectorAll('.chart-wrap').forEach(function(div) {
-  var id = div.id.replace('wrap_', '');
-  var c = document.createElement('canvas');
-  c.id = id;
-  div.appendChild(c);
-});
 
 
 const gold='#FCC636',gold2='#E5A820',gold3='#C98A10',gold4='#AB6D00',gold5='#8D5200',goldL='#FEE99A',goldM='#FDD964';
